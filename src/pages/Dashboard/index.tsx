@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import { Container, InputContainer, Input, Title, InputCDBRate, CalculateBox, ComputedBox, ComputedResultBox } from './styles';
 import api from '../../services/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Chart from '../../components/Chart';
 
 interface CalculateCDBRequest {
   investmentDate: string
@@ -30,7 +31,8 @@ const Dashboard: React.FC = () => {
   const [cdbRate, setCDBRate] = useState<number>(103.5)
 
   const [isSending, setIsSending] = useState(false)
-  const sendRequest = useCallback(async () => {
+  const sendRequest = useCallback(async (e) => {
+    e.preventDefault()
     if (isSending) return
     setIsSending(true)
 
@@ -40,7 +42,7 @@ const Dashboard: React.FC = () => {
       currentDate: formatStringDate(currentDay as Day)
     }
     const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody)
-    
+
     setComputedCDB(data)
     setIsSending(false)
   }, [isSending, investmentDay, currentDay, cdbRate]) // update the callback if the state changes
@@ -78,7 +80,7 @@ const Dashboard: React.FC = () => {
             <InputCDBRate value={cdbRate} onChange={e => setCDBRate(Number(e.target.value))} type="number" />
             <CalculateBox>
               <p>CDB Rate</p>
-              <button onClick={sendRequest}>Compute</button>
+              <button type="button" onClick={sendRequest}>Compute</button>
             </CalculateBox>
           </Input>
         </InputContainer>
@@ -86,10 +88,13 @@ const Dashboard: React.FC = () => {
           {
             isSending ?
               <CircularProgress color="secondary" /> :
-              <ComputedResultBox>
-                <p>Date: {formatStringDate(currentDay as Day)}</p>
-                <p>Unit Price: <strong>{getLastComputedUnitPrice(computedCDB)} R$</strong></p>
-              </ComputedResultBox>
+              <>
+                <ComputedResultBox>
+                  <p>Date: {formatStringDate(currentDay as Day)}</p>
+                  <p>Unit Price: <strong>{getLastComputedUnitPrice(computedCDB)} R$</strong></p>
+                </ComputedResultBox>
+                <Chart data={computedCDB} />
+              </>
           }
         </ComputedBox>
       </Container>

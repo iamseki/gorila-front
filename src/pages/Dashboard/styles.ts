@@ -45,6 +45,7 @@ button {
   padding: 7px;
   border-radius: 17px;
   transition: opacity 0.5s;
+  background-color: #50c878;
 
   &:hover{
     opacity: 50%;
