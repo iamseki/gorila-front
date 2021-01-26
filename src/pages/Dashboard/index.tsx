@@ -19,7 +19,7 @@ interface ComputedUnitResponse {
   date: string
 }
 
-const formatStringDate = (date: Day): string => `${date.year}-${date.month}-${date.day}`
+const formatStringDate = (date: Day): string => `${date.year}-${('0' + date.month).slice(-2)}-${('0' + date.day).slice(-2)}`
 const getLastComputedUnitPrice = (arr: ComputedUnitResponse[]): number => arr[arr?.length - 1]?.unitPrice ?? 0
 
 const Dashboard: React.FC = () => {
@@ -36,13 +36,13 @@ const Dashboard: React.FC = () => {
         currentDate: formatStringDate(currentDay as Day)
       }
       setIsSending(true)
-      const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody)
+      const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody, { timeout: 10000 })
       setIsSending(false)
       setComputedCDB(data)
     }
 
     firstLoad()
-  },[])
+  }, [])
 
   const [isSending, setIsSending] = useState(false)
   const sendRequest = useCallback(async (e) => {
