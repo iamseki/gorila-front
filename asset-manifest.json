@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.js": "/gorila-front/static/js/main.28dff21d.chunk.js",
+    "main.js.map": "/gorila-front/static/js/main.28dff21d.chunk.js.map",
+    "runtime-main.js": "/gorila-front/static/js/runtime-main.369a7000.js",
+    "runtime-main.js.map": "/gorila-front/static/js/runtime-main.369a7000.js.map",
+    "static/css/2.f5f68e44.chunk.css": "/gorila-front/static/css/2.f5f68e44.chunk.css",
+    "static/js/2.9ecbe093.chunk.js": "/gorila-front/static/js/2.9ecbe093.chunk.js",
+    "static/js/2.9ecbe093.chunk.js.map": "/gorila-front/static/js/2.9ecbe093.chunk.js.map",
+    "index.html": "/gorila-front/index.html",
+    "precache-manifest.356538d75db4038ddcb2095a34a691c4.js": "/gorila-front/precache-manifest.356538d75db4038ddcb2095a34a691c4.js",
+    "service-worker.js": "/gorila-front/service-worker.js",
+    "static/css/2.f5f68e44.chunk.css.map": "/gorila-front/static/css/2.f5f68e44.chunk.css.map",
+    "static/js/2.9ecbe093.chunk.js.LICENSE.txt": "/gorila-front/static/js/2.9ecbe093.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/gorila-front/static/media/logo.12a42cb5.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.369a7000.js",
+    "static/css/2.f5f68e44.chunk.css",
+    "static/js/2.9ecbe093.chunk.js",
+    "static/js/main.28dff21d.chunk.js"
+  ]
+}
