@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "018ba6b64050486368401c9019d1f8c7",
+    "revision": "fa816954791224249f4246fb8f00bd5d",
     "url": "/gorila-front/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gorila-front/static/js/2.9ecbe093.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "072b7f2d34c0ea3f70fd",
-    "url": "/gorila-front/static/js/main.b531caf5.chunk.js"
+    "revision": "f22de7f6c09bcb5a5a00",
+    "url": "/gorila-front/static/js/main.3706d317.chunk.js"
   },
   {
     "revision": "ea04219a85809bb8c79f",

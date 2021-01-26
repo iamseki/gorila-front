@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gorila-front/precache-manifest.54267fca42e0263fb8d90d7f6e0eaee0.js"
+  "/gorila-front/precache-manifest.955c9ed3cb30ea8a2a1bde53a5f9948b.js"
 );
 
 self.addEventListener('message', (event) => {
