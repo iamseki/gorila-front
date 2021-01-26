@@ -20,7 +20,7 @@ export const InputContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
-  margin-top: -150px;
+  margin-top: -200px;
 `;
 
 export const Input = styled.div`
@@ -28,7 +28,26 @@ export const Input = styled.div`
   flex-direction: column;
   align-items: center;
   background: ${({ total }: InputProps): string => (total ? '#FF872C' : '#fff')};
-  padding: 22px 32px;
+  padding: 20px 30px;
   border-radius: 5px;
   color: ${({ total }: InputProps): string => (total ? '#fff' : '#363F5F')};
 `;
+
+export const InputCDBRate = styled.input`
+width: 50%;
+`
+
+export const CalculateBox = styled.div`
+display: flex;
+flex-direction: column;
+align-items:center;
+button {
+  padding: 7px;
+  border-radius: 17px;
+  transition: opacity 0.5s;
+  
+  &:hover{
+    opacity: 50%;
+  }
+}
+`
