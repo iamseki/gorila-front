@@ -45,9 +45,25 @@ button {
   padding: 7px;
   border-radius: 17px;
   transition: opacity 0.5s;
-  
+
   &:hover{
     opacity: 50%;
   }
 }
+`
+
+export const ComputedBox = styled.div`
+  margin-top: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const ComputedResultBox = styled.div`
+  display: flex;
+  align-items: center;
+  align-content: center;
+  p {
+    margin: 0 32px;
+  }
 `

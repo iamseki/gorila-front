@@ -3,8 +3,9 @@ import DatePicker, { DayValue, Day } from 'react-modern-calendar-datepicker';
 import React, { useState, useCallback } from 'react';
 import { defaultCurrentDate, defaultInvestmentDate, maximumDate, minimumDate } from './date-picker-options'
 import Header from '../../components/Header';
-import { Container, InputContainer, Input, Title, InputCDBRate, CalculateBox } from './styles';
+import { Container, InputContainer, Input, Title, InputCDBRate, CalculateBox, ComputedBox, ComputedResultBox } from './styles';
 import api from '../../services/api';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface CalculateCDBRequest {
   investmentDate: string
@@ -17,13 +18,15 @@ interface ComputedUnitResponse {
   date: string
 }
 
-const formatStringDate = (date :Day): string => `${date.year}-${date.month}-${date.day}`
+const formatStringDate = (date: Day): string => `${date.year}-${date.month}-${date.day}`
+const getLastComputedUnitPrice = (arr: ComputedUnitResponse[]): number => arr[arr?.length - 1]?.unitPrice ?? 0
 
 const Dashboard: React.FC = () => {
   // const [transactions, setTransactions] = useState<Transaction[]>([]);
   // const [balance, setBalance] = useState<Balance>({} as Balance);
   const [investmentDay, setInvestmentDay] = useState<DayValue>(defaultInvestmentDate);
   const [currentDay, setCurrentInvestmentDay] = useState<DayValue>(defaultCurrentDate);
+  const [computedCDB, setComputedCDB] = useState<ComputedUnitResponse[]>([]);
   const [cdbRate, setCDBRate] = useState<number>(103.5)
 
   const [isSending, setIsSending] = useState(false)
@@ -36,9 +39,9 @@ const Dashboard: React.FC = () => {
       investmentDate: formatStringDate(investmentDay as Day),
       currentDate: formatStringDate(currentDay as Day)
     }
-    const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb',requestBody)
+    const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody)
     
-    console.log(data)
+    setComputedCDB(data)
     setIsSending(false)
   }, [isSending, investmentDay, currentDay, cdbRate]) // update the callback if the state changes
 
@@ -79,6 +82,16 @@ const Dashboard: React.FC = () => {
             </CalculateBox>
           </Input>
         </InputContainer>
+        <ComputedBox>
+          {
+            isSending ?
+              <CircularProgress color="secondary" /> :
+              <ComputedResultBox>
+                <p>Date: {formatStringDate(currentDay as Day)}</p>
+                <p>Unit Price: <strong>{getLastComputedUnitPrice(computedCDB)} R$</strong></p>
+              </ComputedResultBox>
+          }
+        </ComputedBox>
       </Container>
     </>
   );
