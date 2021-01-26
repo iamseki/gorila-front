@@ -1,6 +1,6 @@
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, { DayValue, Day } from 'react-modern-calendar-datepicker';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { defaultCurrentDate, defaultInvestmentDate, maximumDate, minimumDate } from './date-picker-options'
 import Header from '../../components/Header';
 import { Container, InputContainer, Input, Title, InputCDBRate, CalculateBox, ComputedBox, ComputedResultBox } from './styles';
@@ -23,12 +23,24 @@ const formatStringDate = (date: Day): string => `${date.year}-${date.month}-${da
 const getLastComputedUnitPrice = (arr: ComputedUnitResponse[]): number => arr[arr?.length - 1]?.unitPrice ?? 0
 
 const Dashboard: React.FC = () => {
-  // const [transactions, setTransactions] = useState<Transaction[]>([]);
-  // const [balance, setBalance] = useState<Balance>({} as Balance);
   const [investmentDay, setInvestmentDay] = useState<DayValue>(defaultInvestmentDate);
   const [currentDay, setCurrentInvestmentDay] = useState<DayValue>(defaultCurrentDate);
   const [computedCDB, setComputedCDB] = useState<ComputedUnitResponse[]>([]);
   const [cdbRate, setCDBRate] = useState<number>(103.5)
+
+  useEffect(() => {
+    const firstLoad = async () => {
+      const requestBody: CalculateCDBRequest = {
+        cdbRate,
+        investmentDate: formatStringDate(investmentDay as Day),
+        currentDate: formatStringDate(currentDay as Day)
+      }
+      const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody)
+      setComputedCDB(data)
+    }
+
+    firstLoad()
+  },[])
 
   const [isSending, setIsSending] = useState(false)
   const sendRequest = useCallback(async (e) => {
@@ -45,7 +57,7 @@ const Dashboard: React.FC = () => {
 
     setComputedCDB(data)
     setIsSending(false)
-  }, [isSending, investmentDay, currentDay, cdbRate]) // update the callback if the state changes
+  }, [isSending, investmentDay, currentDay, cdbRate])
 
   return (
     <>
