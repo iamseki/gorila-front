@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
         currentDate: formatStringDate(currentDay as Day)
       }
       setIsSending(true)
-      const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody, { timeout: 10000 })
+      const { data } = await api.post<ComputedUnitResponse[]>('api/v1/calculate/cdb', requestBody, { timeout: 60000 })
       setIsSending(false)
       setComputedCDB(data)
     }
